@@ -1,5 +1,6 @@
 package com.ecomarket.cl.ecomarket.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 

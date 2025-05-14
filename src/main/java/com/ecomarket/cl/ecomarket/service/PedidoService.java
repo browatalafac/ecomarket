@@ -43,4 +43,7 @@ public class PedidoService {
         }
         return null;  // O lanzar una excepción
     }
+    public void eliminarPedido(Long id){
+        pedidoRepository.deleteById(id);
+    }
 }
