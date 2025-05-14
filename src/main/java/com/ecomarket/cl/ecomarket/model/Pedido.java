@@ -26,7 +26,6 @@ public class Pedido {
     @Column (nullable = false)
     private Double total;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false) // Aquí la clave foránea
     private Usuario usuario;

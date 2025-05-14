@@ -2,7 +2,9 @@ package com.ecomarket.cl.ecomarket.service;
 
 import com.ecomarket.cl.ecomarket.model.EstadoPedido;
 import com.ecomarket.cl.ecomarket.model.Pedido;
+import com.ecomarket.cl.ecomarket.model.Usuario;
 import com.ecomarket.cl.ecomarket.repository.PedidoRepository;
+import com.ecomarket.cl.ecomarket.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +15,33 @@ import java.util.Optional;
 public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @Autowired
-    public PedidoService(PedidoRepository pedidoRepository) {
+    public PedidoService(PedidoRepository pedidoRepository, UsuarioRepository usuarioRepository){
         this.pedidoRepository = pedidoRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     public Pedido crearPedido(Pedido pedido) {
-        return pedidoRepository.save(pedido);
+        if (pedido.getUsuario() == null || pedido.getUsuario().getId() == null) {
+            throw new IllegalArgumentException("El pedido debe estar asociado a un usuario válido.");
+        }
+
+        Long usuarioId = Long.valueOf(pedido.getUsuario().getId());
+
+        Optional<Usuario> usuarioOpt = usuarioRepository.findById(usuarioId);
+        if (usuarioOpt.isPresent()) {
+            // El usuario existe, puedes guardar el pedido
+            return pedidoRepository.save(pedido);
+        } else {
+            // El usuario no existe, lanzas una excepción
+            throw new IllegalArgumentException("El usuario con ID " + usuarioId + " no existe.");
+        }
     }
+
+
+
 
     // Obtener todos los pedidos
     public List<Pedido> obtenerPedidos() {

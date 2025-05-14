@@ -1,5 +1,6 @@
 package com.ecomarket.cl.ecomarket.controller;
 
+import com.ecomarket.cl.ecomarket.DTO.PedidoDTO;
 import com.ecomarket.cl.ecomarket.model.Pedido;
 import com.ecomarket.cl.ecomarket.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/pedidos")
@@ -29,18 +31,23 @@ public class PedidoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Pedido>> obtenerTodosLosPedidos(){
-        List<Pedido> pedidos = pedidoService.obtenerPedidos();
+    public ResponseEntity<List<PedidoDTO>> obtenerTodosLosPedidos(){
+        List<PedidoDTO> pedidos = pedidoService.obtenerPedidos()
+                .stream()
+                .map(PedidoDTO::new)
+                .collect(Collectors.toList());
         return new ResponseEntity<>(pedidos, HttpStatus.OK);
     }
 
+
     @GetMapping("/{id}")
-    public ResponseEntity<Pedido> obtenerPedidoPorId(@PathVariable Long id){
+    public ResponseEntity<PedidoDTO> obtenerPedidoPorId(@PathVariable Long id){
         Optional<Pedido> pedidoOpt = pedidoService.obtenerPedidoPorId(id);
         return pedidoOpt
-                .map(pedido -> new ResponseEntity<>(pedido, HttpStatus.OK))
+                .map(pedido -> new ResponseEntity<>(new PedidoDTO(pedido), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
 
     @PutMapping("/{id}/estado")
     public ResponseEntity<Pedido> actualizarEstadoPedido(@PathVariable Long id, @RequestParam String estado){
