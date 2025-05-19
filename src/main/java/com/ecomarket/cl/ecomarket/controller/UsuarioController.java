@@ -50,6 +50,7 @@ public class UsuarioController {
             existente.setFechaNacimiento(usuario.getFechaNacimiento());
             existente.setCorreo(usuario.getCorreo());
             existente.setPassword(usuario.getPassword()); // Asegúrate de incluir esto si es necesario
+            existente.setRol(usuario.getRol());
 
             usuarioService.save(existente);
             return ResponseEntity.ok(existente);
