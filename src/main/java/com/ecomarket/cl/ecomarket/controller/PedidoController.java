@@ -34,7 +34,7 @@ public class PedidoController {
     public ResponseEntity<List<PedidoDTO>> obtenerTodosLosPedidos(){
         List<PedidoDTO> pedidos = pedidoService.obtenerPedidos()
                 .stream()
-                .map(PedidoDTO::new)
+                .map(pedido -> new PedidoDTO(pedido))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(pedidos, HttpStatus.OK);
     }
