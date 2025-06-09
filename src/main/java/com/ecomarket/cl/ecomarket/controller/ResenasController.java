@@ -1,4 +1,4 @@
 package com.ecomarket.cl.ecomarket.controller;
 
-public class RenenasController {
+public class ResenasController {
 }
