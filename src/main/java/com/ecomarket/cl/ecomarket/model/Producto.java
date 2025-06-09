@@ -23,6 +23,9 @@ public class Producto {
     @Column (nullable = false)
     private int stock;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pedido_id", nullable = false) // Aquí la clave foránea
+    private Pedido pedido;
 
 
 
