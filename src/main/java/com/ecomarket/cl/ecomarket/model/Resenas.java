@@ -1,5 +1,6 @@
 package com.ecomarket.cl.ecomarket.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,5 +24,6 @@ public class Resenas {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "resena_id", nullable = false)
+    @JsonIgnore
     private Producto producto;
 }

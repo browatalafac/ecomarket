@@ -41,7 +41,7 @@ public class UsuarioService {
         if (usuario != null && usuario.getPassword().equals(password)) {
             return usuario;
         } else {
-            return null;  // Si las credenciales no son correctas, retorna null
+            return null;
         }
     }
 }

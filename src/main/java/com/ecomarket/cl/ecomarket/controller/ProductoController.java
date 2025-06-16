@@ -26,7 +26,9 @@ public class ProductoController {
 
     @PostMapping
     public ResponseEntity<Producto> guardar(@RequestBody Producto producto){
+        System.out.println("Si");
         Producto productoNuevo = productoService.save(producto);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(productoNuevo);
 
     }
