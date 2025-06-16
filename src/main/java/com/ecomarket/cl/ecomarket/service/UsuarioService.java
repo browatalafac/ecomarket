@@ -12,7 +12,6 @@ import java.util.Optional;
 @Service
 @Transactional
 public class UsuarioService {
-    private int caca;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
