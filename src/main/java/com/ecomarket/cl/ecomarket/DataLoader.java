@@ -49,6 +49,7 @@ public class DataLoader implements CommandLineRunner {
         }
 
         List<Usuario> usuarios = usuarioRepository.findAll();
+
         //generar pedidos
         for (int i=0;i<3;i++){
             Pedido pedido= new Pedido();
@@ -89,40 +90,35 @@ public class DataLoader implements CommandLineRunner {
 
             // Guardar la reseña en la base de datos
             resenasRepository.save(resenas);
-
         }
 
+        List<Resenas> resenas=resenasRepository.findAll();
 //      Generar facturación para cada pedido
-        for (Pedido pedido : pedidos) {
-            // Crear la factura
-            Facturacion facturacion = new Facturacion();
-
-            // Obtener el nombre del cliente desde el usuario asociado al pedido
-            String nombreCliente = pedido.getUsuario().getNombres() + " " + pedido.getUsuario().getApellidos();
-            facturacion.setNombreCompletoCliente(nombreCliente);
-
-            // Calcular el precio final del pedido sumando el precio de los productos asociados
-            double precioFinal = 0;
-            for (Producto producto : pedido.getProductos()) {
-                precioFinal += producto.getPrecio();
+        for (int i=0;i<3;i++){
+            Facturacion facturacion= new Facturacion();
+            facturacion.setNombreCompletoCliente(faker.name().firstName());
+            facturacion.setDescripcionProductos(faker.lorem().sentence());
+            facturacion.setPrecioFinalPedido(faker.number().randomDouble(1,10000,999999));
+            if (!pedidos.isEmpty()) {
+                Pedido pedidoAleatorio = faker.options().nextElement(pedidos);
+                facturacion.setPedido(pedidoAleatorio);
             }
-            facturacion.setPrecioFinalPedido(precioFinal);
 
-            // Descripción de los productos del pedido
-            StringBuilder descripcionProductos = new StringBuilder();
-            for (Producto producto : pedido.getProductos()) {
-                descripcionProductos.append(producto.getNombre()).append(" - ");
-            }
-            facturacion.setDescripcionProductos(descripcionProductos.toString());
-
-            // Asignar el pedido a la facturación
-            facturacion.setPedido(pedido);
-
-            // Guardar la facturación en la base de datos
             facturacionRepository.save(facturacion);
         }
 
+        //GENERA SOPORTES
+        for (int i=0;i<3;i++) {
+            Soporte soporte = new Soporte();
+            soporte.setDescripcionProblema(faker.lorem().sentence());
+            soporte.setRespuestaProblema(faker.lorem().sentence());
+            if (!usuarios.isEmpty()) {
+                Usuario usuarioAleatoreo = faker.options().nextElement(usuarios);
+                soporte.setUsuario(usuarioAleatoreo);
+            }
 
+            soporteRepository.save(soporte);
+        }
 
     }
 
