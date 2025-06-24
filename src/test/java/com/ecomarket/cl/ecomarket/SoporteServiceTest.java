@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 public class SoporteServiceTest {
     @Autowired
@@ -56,14 +57,27 @@ public class SoporteServiceTest {
 
     }
 
-
     @Test
     public void testSave(){
+        Soporte soporte = new Soporte(1, "No cumplía con las expectativas", "",
+                new Usuario(1, "1-9", "Ulises", "Torres", "01-01-2000", "elulises@gmail.com", "123456", RolUsuario.CLIENTE));
 
+        when(soporteRepository.save(soporte)).thenReturn(soporte);
 
-
+        Soporte saved = soporteService.save(soporte);
+        assertNotNull(saved);
+        assertEquals("No cumplía con las expectativas", saved.getDescripcionProblema());
     }
 
+    @Test
+    public void testDeleteById(){
+        Integer id = 1;
+
+        //Define el comportamiento del mock: cuando se llame a deleteById(), no hace nada
+        doNothing().when(soporteRepository).deleteById(id);
+        soporteService.delete(id);
+        verify(soporteRepository, times(1)).deleteById(id);
+    }
 
 
 }

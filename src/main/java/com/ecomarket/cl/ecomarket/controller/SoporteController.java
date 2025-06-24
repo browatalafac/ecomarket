@@ -58,7 +58,7 @@ public class SoporteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminar(@PathVariable Long id){
+    public ResponseEntity<?> eliminar(@PathVariable Integer id){
         try {
             soporteService.delete(id);
             return ResponseEntity.noContent().build();

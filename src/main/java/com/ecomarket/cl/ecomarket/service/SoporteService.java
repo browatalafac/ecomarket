@@ -20,7 +20,7 @@ public class SoporteService {
         return soporteRepository.findAll();
     }
 
-    public Soporte findById(long id){
+    public Soporte findById(Integer id){
         return soporteRepository.findById(id).get();
     }
 
@@ -28,7 +28,7 @@ public class SoporteService {
         return soporteRepository.save(soporte);
     }
 
-    public void delete(Long id){
+    public void delete(Integer id){
         soporteRepository.deleteById(id);
     }
 
