@@ -58,7 +58,7 @@ public class ResenasController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminar(@PathVariable Long id){
+    public ResponseEntity<?> eliminar(@PathVariable Integer id){
         try {
             resenaService.delete(id);
             return ResponseEntity.noContent().build();

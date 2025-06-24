@@ -5,16 +5,21 @@ import com.ecomarket.cl.ecomarket.model.Soporte;
 import com.ecomarket.cl.ecomarket.model.Usuario;
 import com.ecomarket.cl.ecomarket.repository.SoporteRepository;
 import com.ecomarket.cl.ecomarket.service.SoporteService;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Service;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
+
+@Service
+@Transactional
+@SpringBootTest
 
 public class SoporteServiceTest {
     @Autowired

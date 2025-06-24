@@ -4,7 +4,6 @@ import com.ecomarket.cl.ecomarket.model.*;
 import com.ecomarket.cl.ecomarket.repository.FacturacionRepository;
 import com.ecomarket.cl.ecomarket.repository.PedidoRepository;
 import com.ecomarket.cl.ecomarket.repository.UsuarioRepository;
-import com.ecomarket.cl.ecomarket.service.FacturacionService;
 import com.ecomarket.cl.ecomarket.service.PedidoService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;

@@ -18,14 +18,14 @@ public class ResenaService {
         return resenasRepository.findAll();
     }
 
-    public Resenas findById(long id){
+    public Resenas findById(Integer id){
         return resenasRepository.findById(id).get();}
 
     public Resenas save(Resenas resenas){
         return resenasRepository.save(resenas);
     }
 
-    public void delete(Long id){
+    public void delete(Integer id){
         resenasRepository.deleteById(id);
     }
 
