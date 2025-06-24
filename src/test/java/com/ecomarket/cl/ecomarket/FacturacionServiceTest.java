@@ -72,9 +72,6 @@ public class FacturacionServiceTest {
 
         assertNotNull(saved);
         assertEquals("Ulises Torres", saved.getNombreCompletoCliente());
-
-
-
     }
 
     @Test

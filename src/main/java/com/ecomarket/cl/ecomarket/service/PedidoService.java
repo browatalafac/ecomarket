@@ -40,9 +40,6 @@ public class PedidoService {
         }
     }
 
-
-
-
     // Obtener todos los pedidos
     public List<Pedido> obtenerPedidos() {
         return pedidoRepository.findAll();
