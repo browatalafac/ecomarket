@@ -31,7 +31,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscar(@PathVariable Long id) {
+    public ResponseEntity<Usuario> buscar(@PathVariable Integer id) {
         Usuario usuario = usuarioService.findById(id);
         if (usuario != null) {
             return ResponseEntity.ok(usuario);
@@ -41,7 +41,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> actualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> actualizar(@PathVariable Integer id, @RequestBody Usuario usuario) {
         Usuario existente = usuarioService.findById(id);
         if (existente != null) {
             existente.setRun(usuario.getRun());
@@ -60,7 +60,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminar(@PathVariable Long id) {
+    public ResponseEntity<?> eliminar(@PathVariable Integer id) {
         Usuario existente = usuarioService.findById(id);
         if (existente != null) {
             usuarioService.delete(id);
