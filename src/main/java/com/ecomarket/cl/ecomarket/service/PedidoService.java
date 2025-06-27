@@ -28,7 +28,7 @@ public class PedidoService {
             throw new IllegalArgumentException("El pedido debe estar asociado a un usuario válido.");
         }
 
-        Long usuarioId = Long.valueOf(pedido.getUsuario().getId());
+        Integer usuarioId = pedido.getUsuario().getId();
 
         Optional<Usuario> usuarioOpt = usuarioRepository.findById(usuarioId);
         if (usuarioOpt.isPresent()) {

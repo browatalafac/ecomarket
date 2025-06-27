@@ -61,7 +61,7 @@ public class PedidoServiceTest {
     public void testSave() {
         Usuario usuario = new Usuario(1,"187849129","Ulises","Torres","16-01-2004","ulises@gmail.com","contrasena",RolUsuario.CLIENTE);
         Pedido pedido = new Pedido(1L, "", EstadoPedido.PENDIENTE, 10000.0, usuario);
-        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuario));
+        when(usuarioRepository.findById(1)).thenReturn(Optional.of(usuario));
         when(pedidoRepository.save(pedido)).thenReturn(pedido);
 
         Pedido creado = pedidoService.crearPedido(pedido);

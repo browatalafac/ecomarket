@@ -42,9 +42,9 @@ public class UsuarioServiceTest {
     @Test
     public void testFindById() {
         Usuario usuario = new Usuario(1, "187849129", "Ulises", "Torres", "16-01-2004", "ulises@gmail.com", "contrasena", RolUsuario.CLIENTE);
-        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuario));
+        when(usuarioRepository.findById(1)).thenReturn(Optional.of(usuario));
 
-        Usuario result = usuarioService.findById(1L);
+        Usuario result = usuarioService.findById(1);
 
         assertNotNull(result);
         assertEquals("Ulises", result.getNombres());
@@ -63,10 +63,10 @@ public class UsuarioServiceTest {
 
     @Test
     public void testDeleteById() {
-        doNothing().when(usuarioRepository).deleteById(1L);
+        doNothing().when(usuarioRepository).deleteById(1);
 
-        usuarioService.delete(1L);
+        usuarioService.delete(1);
 
-        verify(usuarioRepository, times(1)).deleteById(1L);
+        verify(usuarioRepository, times(1)).deleteById(1);
     }
 }
