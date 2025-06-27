@@ -3,6 +3,8 @@ package com.ecomarket.cl.ecomarket.controller;
 import com.ecomarket.cl.ecomarket.DTO.PedidoDTO;
 import com.ecomarket.cl.ecomarket.model.Pedido;
 import com.ecomarket.cl.ecomarket.service.PedidoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +16,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/pedidos")
-
+@Tag(name = "Pedidos", description = "Operaciones relacionadas con los pedidos")
 public class PedidoController {
     @Autowired
     private PedidoService pedidoService;
 
-    //Crear un nuevo pedido
     @PostMapping
+    @Operation(summary = "Crear un nuevo pedido", description = "Guarda un nuevo pedido en la base de datos")
     public ResponseEntity<Pedido> crearPedido(@RequestBody Pedido pedido){
         try {
             Pedido nuevoPedido = pedidoService.crearPedido(pedido);
@@ -31,6 +33,7 @@ public class PedidoController {
     }
 
     @GetMapping
+    @Operation(summary = "Obtener todos los pedidos", description = "Devuelve una lista de todos los pedidos existentes en el sistema")
     public ResponseEntity<List<PedidoDTO>> obtenerTodosLosPedidos(){
         List<PedidoDTO> pedidos = pedidoService.obtenerPedidos()
                 .stream()
@@ -41,6 +44,7 @@ public class PedidoController {
 
 
     @GetMapping("/{id}")
+    @Operation(summary = "Obtener un pedido por ID", description = "Busca y devuelve un pedido específico dado su ID")
     public ResponseEntity<PedidoDTO> obtenerPedidoPorId(@PathVariable Long id){
         Optional<Pedido> pedidoOpt = pedidoService.obtenerPedidoPorId(id);
         return pedidoOpt
@@ -50,6 +54,7 @@ public class PedidoController {
 
 
     @PutMapping("/{id}/estado")
+    @Operation(summary = "Actualizar el estado de un pedido", description = "Modifica el estado de un pedido dado su ID y el nuevo estado")
     public ResponseEntity<Pedido> actualizarEstadoPedido(@PathVariable Long id, @RequestParam String estado){
         try {
             Pedido pedidoActualizado = pedidoService.actualizarEstadoPedido(id, estado.toUpperCase());
@@ -62,7 +67,9 @@ public class PedidoController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST); //Estado no valido, osea que no existe.
         }
     }
+
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar un pedido", description = "Elimina un pedido específico dado su ID")
     public ResponseEntity<Void> eliminarPedido(@PathVariable Long id){
         Optional<Pedido> pedidoOpt = pedidoService.obtenerPedidoPorId(id);
         if (pedidoOpt.isPresent()){
