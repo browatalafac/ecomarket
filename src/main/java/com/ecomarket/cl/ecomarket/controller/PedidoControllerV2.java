@@ -40,9 +40,14 @@ public class PedidoControllerV2 {
     }
 
     @GetMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
-    public EntityModel<Pedido> getPedidoByid(@PathVariable Long id) {
+    public ResponseEntity<EntityModel<Pedido>> getPedidoByid(@PathVariable Long id) {
         Optional<Pedido> pedido = pedidoService.obtenerPedidoPorId(id);
-        return assambler.toModel(pedido);
+
+        if (pedido.isPresent()) {
+            return ResponseEntity.ok(assambler.toModel(pedido.get()));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
@@ -54,12 +59,16 @@ public class PedidoControllerV2 {
     }
 
     @PutMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
-    public ResponseEntity<EntityModel<Facturacion>> updatePedido(@PathVariable Long id, @RequestBody Pedido pedido) {
-        pedido.setId(id);
-        Pedido updatePedido = pedidoService.actualizarEstadoPedido(pedido);
-        return ResponseEntity
-                .ok(assambler.toModel(updatePedido));
+    public ResponseEntity<EntityModel<Pedido>> updatePedido(@PathVariable Long id, @RequestBody Pedido pedido) {
+        Pedido updatePedido = pedidoService.actualizarEstadoPedido(id, pedido.getEstadoPedido().name());
+
+        if (updatePedido == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(assambler.toModel(updatePedido));
     }
+
 
     @DeleteMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<?> deletePedido(@PathVariable Long id) {
@@ -67,4 +76,4 @@ public class PedidoControllerV2 {
         return ResponseEntity.noContent().build();
     }
 }
-}
+
