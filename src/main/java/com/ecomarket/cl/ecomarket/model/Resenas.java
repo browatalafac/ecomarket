@@ -22,8 +22,7 @@ public class Resenas {
     @Column (nullable = true)
     private String detalleResena;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "resena_id", nullable = false)
-    @JsonIgnore
     private Producto producto;
 }

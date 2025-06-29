@@ -22,7 +22,7 @@ public class Soporte {
     @Column (nullable = false)
     private String respuestaProblema;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "soporte_id", nullable = false)
     private Usuario usuario;
 }

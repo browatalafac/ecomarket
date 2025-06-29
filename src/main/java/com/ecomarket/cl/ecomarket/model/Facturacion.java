@@ -25,7 +25,7 @@ public class Facturacion {
     @Column (nullable = false)
     private Double precioFinalPedido;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "facturacion_id", nullable = false)
     private Pedido pedido;
 }

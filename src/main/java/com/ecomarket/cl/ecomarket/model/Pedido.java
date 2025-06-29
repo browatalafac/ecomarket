@@ -27,7 +27,7 @@ public class Pedido {
     @Column (nullable = false)
     private Double total;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id", nullable = false) // Aquí la clave foránea
     private Usuario usuario;
 
