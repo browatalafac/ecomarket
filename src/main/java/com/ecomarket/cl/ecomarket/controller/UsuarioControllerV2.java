@@ -53,8 +53,8 @@ public class UsuarioControllerV2 {
     public ResponseEntity<EntityModel<Usuario>> updateUsuario(@PathVariable Integer id, @RequestBody Usuario usuario) {
         usuario.setId(id);
         Usuario updateUsuario = usuarioService.save(usuario);
-        return ResponseEntity
-                .ok(assambler.toModel(usuario));
+        return ResponseEntity.ok(assambler.toModel(updateUsuario));
+        //Corregí esta parte, ya que se estaba devolviendo el mismo usuario y no el updateUsuario
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
