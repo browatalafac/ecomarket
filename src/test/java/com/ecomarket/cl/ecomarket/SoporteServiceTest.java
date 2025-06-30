@@ -45,22 +45,20 @@ public class SoporteServiceTest {
     }
 
     @Test
-    public void testFindById(){
+    public void testFindById() {
         Integer id = 1;
 
         Soporte soporte = new Soporte(1, "No cumplía con las expectativas", "",
                 new Usuario(1, "1-9", "Ulises", "Torres", "01-01-2000", "elulises@gmail.com", "123456", RolUsuario.CLIENTE));
 
-        soporteRepository.save(soporte); // Asegúrate de guardar el soporte si usas una BD en memoria para tests
+        when(soporteRepository.findById(id)).thenReturn(Optional.of(soporte));
 
-        Optional<Soporte> foundOptional = soporteRepository.findById(id);
-        assertTrue(foundOptional.isPresent());
+        Soporte found = soporteService.findById(id);
 
-        Soporte found = foundOptional.get();
         assertNotNull(found);
         assertEquals(id, found.getId());
-
     }
+
 
     @Test
     public void testSave(){

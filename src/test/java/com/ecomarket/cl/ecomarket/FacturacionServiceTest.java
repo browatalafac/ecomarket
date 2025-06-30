@@ -50,15 +50,19 @@ public class FacturacionServiceTest {
     @Test
     public void testFindById(){
         Integer id = 1;
-        Facturacion facturacion = new Facturacion(id,"","",5000.0,  new Pedido(1L, "", EstadoPedido.PENDIENTE, 10000.0,
-                new Usuario(1, "1-9", "Ulises", "Torres", "01-01-2000", "elulises@gmail.com", "123456", RolUsuario.CLIENTE)));
+        Facturacion facturacion = new Facturacion(id, "", "", 5000.0,
+                new Pedido(1L, "", EstadoPedido.PENDIENTE, 10000.0,
+                        new Usuario(1, "1-9", "Ulises", "Torres", "01-01-2000", "elulises@gmail.com", "123456", RolUsuario.CLIENTE)));
+
+        // Simulamos la respuesta del repositorio
+        when(facturacionRepository.findById(1L)).thenReturn(Optional.of(facturacion));
 
         Facturacion found = facturacionService.findById(id);
 
-        assertNotNull(facturacion);
+        assertNotNull(found);
         assertEquals(id, found.getId());
-
     }
+
 
     @Test
     public void testSave(){

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -49,9 +50,11 @@ public class ProductoServiceTest {
         Producto producto = new Producto(1,"Escoba", 4000, 100, new Pedido(1L, "", EstadoPedido.PENDIENTE, 10000.0,
                 new Usuario(1, "1-9", "Ulises", "Torres", "01-01-2000", "elulises@gmail.com", "123456", RolUsuario.CLIENTE)));
 
+        when(productoRepository.findById(id)).thenReturn(Optional.of(producto));
+
         Producto found = productoService.findById(id);
 
-        assertNotNull(producto);
+        assertNotNull(found);
         assertEquals(id, found.getId());
     }
 

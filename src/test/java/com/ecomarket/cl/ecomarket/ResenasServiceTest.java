@@ -56,7 +56,7 @@ public class ResenasServiceTest {
 
     @Test
     public void testSave(){
-        Resenas resenas = new Resenas(1, 5, "Muy Bueno", new Producto(1, "Escoba", 10000, 100, new Pedido(1L, "", EstadoPedido.PENDIENTE, 10000.0,
+        Resenas resenas = new Resenas(1, 5, "Muy bueno", new Producto(1, "Escoba", 10000, 100, new Pedido(1L, "", EstadoPedido.PENDIENTE, 10000.0,
                 new Usuario(1, "1-9", "Ulises", "Torres", "01-01-2000", "elulises@gmail.com", "123456", RolUsuario.CLIENTE))));
 
 
@@ -65,7 +65,7 @@ public class ResenasServiceTest {
         Resenas saved = resenaService.save(resenas);
 
         assertNotNull(saved);
-        assertEquals("Ulises Torres", saved.getDetalleResena());
+        assertEquals("Muy bueno", saved.getDetalleResena());
     }
 
     @Test
