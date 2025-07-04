@@ -33,11 +33,11 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    // Método de login
+    // Login
     public Usuario login(String email, String password) {
         Usuario usuario = usuarioRepository.findByCorreo(email);
 
-        // Verifica que el usuario exista y que las contraseñas coincidan
+        // Verificacion de contraseña
         if (usuario != null && usuario.getPassword().equals(password)) {
             return usuario;
         } else {
